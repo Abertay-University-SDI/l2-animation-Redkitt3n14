@@ -36,6 +36,9 @@
     <ClCompile Include="Framework\BaseLevel.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Sheep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation.h">
@@ -52,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="Framework\BaseLevel.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Sheep.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
