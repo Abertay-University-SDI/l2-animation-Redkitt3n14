@@ -8,7 +8,7 @@ Level::Level(sf::RenderWindow& hwnd, Input& in) :
 		std::cerr << "No Sheep Texture\n";
 
 	m_sheep.setTexture(&m_sheepTexture);
-	m_sheep.setTextureRect(sf::IntRect({ 0,0 }, { 64,64 }));
+	//m_sheep.setTextureRect(sf::IntRect({ 0,0 }, { 64,64 }));
 
 	m_sheep.setPosition({ 10,10 });
 	m_sheep.setSize({ 64,64 });
@@ -28,8 +28,6 @@ void Level::update(float dt)
 {
 	if (m_gameOver) return;
 
-	m_sheep.update(dt);
-
 	// check wall collision
 	sf::Vector2f pos = m_sheep.getPosition();
 	float width = m_sheep.getSize().x/2;
@@ -40,6 +38,8 @@ void Level::update(float dt)
 		m_gameOver = true;
 		std::cout << "Game over";
 	}
+
+	m_sheep.update(dt);
 
 }
 

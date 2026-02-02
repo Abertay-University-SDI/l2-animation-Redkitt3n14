@@ -4,15 +4,23 @@
 Sheep::Sheep()
 {
 	//initialise animations
-	//*Animation m_currentAnimation;
-	Animation m_walkDown;
+	for (int i = 0; i < 4; i++) {
+		m_walkDown.addFrame({ { 64 * i,0 }, { 64, 64 } });
+	}
+	m_walkDown.setLooping(true);
+	m_walkDown.setFrameSpeed(0.5f);
+	
+	m_currentAnimation = &m_walkDown;
+	setTextureRect(m_currentAnimation->getCurrentFrame());
 }
 
 void Sheep::update(float dt)
 {
+	setTextureRect(m_currentAnimation->getCurrentFrame());
+	m_currentAnimation->animate(dt);
 	// set sheep direction
 	// 
-		// for diagonal movement
+	// for diagonal movement
 	float diagonal_speed = m_speed * APPROX_ONE_OVER_ROOT_TWO * dt;
 	float orthog_speed = m_speed * dt;	// orthogonal movement
 
