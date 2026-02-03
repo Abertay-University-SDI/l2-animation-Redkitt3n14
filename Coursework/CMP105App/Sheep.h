@@ -27,4 +27,16 @@ private:
 	Animation* m_currentAnimation;
 
 	Animation m_walkDown;
+	Animation m_walkUp;
+
+	Animation m_walkRight;
+
+	Animation m_walkUpRight;
+	Animation m_walkDownRight;
+
+	Animation m_walkLeft;
+
+	Animation m_walkUpLeft;
+	Animation m_walkDownLeft;
+
 };
