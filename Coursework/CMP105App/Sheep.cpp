@@ -46,40 +46,50 @@ void Sheep::update(float dt)
 	float diagonal_speed = m_speed * APPROX_ONE_OVER_ROOT_TWO * dt;
 	float orthog_speed = m_speed * dt;	// orthogonal movement
 
-	switch (m_direction)
-	{
-	case Direction::UP:
-		move({ 0, -orthog_speed });
-		m_currentAnimation = &m_walkUp;
-		break;
-	case Direction::UP_RIGHT:
-		move({ diagonal_speed, -diagonal_speed });
-		m_currentAnimation = &m_walkUpRight;
-		break;
-	case Direction::RIGHT:
-		move({ orthog_speed,0 });
-		m_currentAnimation = &m_walkRight;
-		break;
-	case Direction::DOWN_RIGHT:
-		move({ diagonal_speed, diagonal_speed });
-		m_currentAnimation = &m_walkDownRight;
-		break;
-	case Direction::DOWN:
-		move({ 0, orthog_speed });
-		m_currentAnimation = &m_walkDown;
-		break;
-	case Direction::DOWN_LEFT:
-		move({ -diagonal_speed, diagonal_speed });
-		m_currentAnimation = &m_walkDownLeft;
-		break;
-	case Direction::LEFT:
-		move({ -orthog_speed,0 });
-		m_currentAnimation = &m_walkLeft;
-		break;
-	case Direction::UP_LEFT:
-		move({ -diagonal_speed, -diagonal_speed });
-		m_currentAnimation = &m_walkUpLeft;
-		break;
+	// the space key stop
+	if (m_direction == Direction::NONE) {
+		m_currentAnimation->stop();
+	}
+	else { // all movements other than stop
+		switch (m_direction) 
+		{
+		case Direction::UP:
+			move({ 0, -orthog_speed });
+			m_currentAnimation = &m_walkUp;
+			break;
+		case Direction::UP_RIGHT:
+			move({ diagonal_speed, -diagonal_speed });
+			m_currentAnimation = &m_walkUpRight;
+			break;
+		case Direction::RIGHT:
+			move({ orthog_speed,0 });
+			m_currentAnimation = &m_walkRight;
+			break;
+		case Direction::DOWN_RIGHT:
+			move({ diagonal_speed, diagonal_speed });
+			m_currentAnimation = &m_walkDownRight;
+			break;
+		case Direction::DOWN:
+			move({ 0, orthog_speed });
+			m_currentAnimation = &m_walkDown;
+			break;
+		case Direction::DOWN_LEFT:
+			move({ -diagonal_speed, diagonal_speed });
+			m_currentAnimation = &m_walkDownLeft;
+			break;
+		case Direction::LEFT:
+			move({ -orthog_speed,0 });
+			m_currentAnimation = &m_walkLeft;
+			break;
+		case Direction::UP_LEFT:
+			move({ -diagonal_speed, -diagonal_speed });
+			m_currentAnimation = &m_walkUpLeft;
+			break;
+		}
+
+		// all other anims must play (has a delay of 1 update cycle but this is minor)
+		m_currentAnimation->setPlaying(true);
+
 	}
 }
 
@@ -122,6 +132,11 @@ void Sheep::handleInput(float dt)
 			m_direction = Direction::UP;
 		else if (m_input->isKeyDown(sf::Keyboard::Scancode::S))
 			m_direction = Direction::DOWN;
+	}
+	// movestop on space key
+	if (m_input->isKeyDown(sf::Keyboard::Scancode::Space))
+	{
+		m_direction = Direction::NONE;
 	}
 
 	// set input buffer if needed, this makes diagonal movement easier
